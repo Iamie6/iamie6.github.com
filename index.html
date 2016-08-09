@@ -12,11 +12,17 @@
     <script>
         alert(window.navigator.geolocation)
         if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(function(){
-                alert('获取成功')
+            navigator.geolocation.watchPosition(function(ev){
+                alert(ev.coords.longitude)
+                //alert(ev.coords.latitude)
+                //alert(ev.coords.accuracy)
+                //console.log(ev.coords)
+                //40.100145
+                //116.364454
+
             },function(ev){
                 alert('获取失败:' + ev.code+ev.message);
-            })
+            },{})
         }else{
             alert('此设备不支持地理信息')
         }

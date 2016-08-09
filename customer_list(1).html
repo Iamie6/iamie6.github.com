@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <title>久囍管家列表</title>
+    <script>
+        alert(window.navigator.geolocation)
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(function(){
+                alert('获取成功')
+            },function(ev){
+                alert('获取失败:' + ev.code+ev.message);
+            })
+        }else{
+            alert('此设备不支持地理信息')
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+</html>

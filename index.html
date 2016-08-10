@@ -8,11 +8,12 @@
 	window.onload=function(){
 		var oStart=document.querySelector('input');
 		var oEnd=document.querySelectorAll('input')[1];
+		var oDiv=document.querySelector('div');
 		var timer=null;
 		oStart.onclick=function(){
 			if(navigator.geolocation){
 				timer=navigator.geolocation.watchPosition(function(ev){
-					alert(ev.coords.longitude)
+					oDiv.innerHTML+=ev.coords.longitude+'<br>';
 				},function(){
 					alert('失败')
 				})
@@ -30,6 +31,9 @@
 <body>
 	<input type="button" value="开始定位">
 	<input type="button" value="结束定位">
+	<div>
+		
+	</div>
 </body>
 </html>
 

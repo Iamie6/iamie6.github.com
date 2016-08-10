@@ -2,21 +2,34 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<meta name="viewport" content="width=320">
+	<title>开始关闭</title>
 	<script>
-	if(navigator.geolocation){
-		navigator.geolocation.watchPosition(function(ev){
-			alert(ev.coords.latitude)
-		},function(){
-			alert('获取失败')
-		})
-	}else{
-		alert('升级浏览器')
-	}
+	window.onload=function(){
+		var oStart=document.querySelector('input');
+		var oEnd=document.querySelectorAll('input')[1];
+		var timer=null;
+		oStart.onclick=function(){
+			if(navigator.geolocation){
+				timer=navigator.geolocation.watchPosition(function(ev){
+					alert(ev.coords.longitude)
+				},function(){
+					alert('失败')
+				})
+			}else{
+				alert('升级')
+			}
+		};
+
+		oEnd.onclick=function(){
+			clearWatch(timer);
+		};
+	};
 	</script>
 </head>
 <body>
-	
+	<input type="button" value="开始定位">
+	<input type="button" value="结束定位">
 </body>
 </html>
 

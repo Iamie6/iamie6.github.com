@@ -4,6 +4,13 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=320">
 	<title>开始关闭</title>
+	<style>
+		div{
+			width:200px;
+			height: 200px;
+			border: 1px solid #ccc;
+		}
+	</style>
 	<script>
 	window.onload=function(){
 		var oStart=document.querySelector('input');
@@ -23,7 +30,7 @@
 		};
 
 		oEnd.onclick=function(){
-			clearWatch(timer);
+			navigator.geolocation.clearWatch(timer);
 		};
 	};
 	</script>

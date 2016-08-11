@@ -6,7 +6,11 @@
 	<style>
 	</style>
 	<script>
-	alert(window.deviceMotionEvent)
+	if(window.DeviceMotionEvent){
+		alert('支持')
+	}else{
+		alert('不支持')
+	}
 	</script>
 </head>
 <body>

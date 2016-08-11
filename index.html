@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=320">
 	<title>Document</title>
 	<style>
 	div{
@@ -15,15 +16,31 @@
 		return parseInt(Math.random()*(m-n)+n);
 	}
 	window.onload=function(){
+
+		var x=0;
+		var y=0;
+		var z=0;
 		var oDiv=document.getElementsByTagName('div')[0];
 		if(window.DeviceMotionEvent){
 			window.addEventListener(
 				'devicemotion',
 				function(ev){
 					var a=ev.accelerationIncludingGravity;
-					oDiv.innerHTML=a.x+'<br>'+a.y+'<br>'+a.z;
-				},
-			false)
+					var nowX=a.x;
+					var nowY=a.y;
+					var nowZ=a.z;
+
+					if(
+						Math.abs(nowX-x)>20
+						||Math.abs(nowY-y)>20
+						||Math.abs(nowZ-z)>20
+						){
+						oDiv.style.background='rgb('+rnd(0,256)+','+rnd(0,256)+','+rnd(0,256)+')';
+						x=nowX;
+						y=nowY;
+						z=nowZ;
+					}
+				},false)
 		}
 	};
 	</script>

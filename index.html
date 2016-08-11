@@ -4,15 +4,30 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<style>
+	div{
+		width:200px;
+		height:200px;
+		background: #ccc;
+	}
 	</style>
 	<script>
-	if(window.DeviceMotionEvent){
-		alert('支持')
-	}else{
-		alert('不支持')
+	function rnd(n,m){
+		return parseInt(Math.random()*(m-n)+n);
 	}
+	window.onload=function(){
+		var oDiv=document.getElementsByTagName('div')[0];
+		if(window.DeviceMotionEvent){
+			window.addEventListener(
+				'devicemotion',
+				function(){
+					oDiv.style.background='rgb('+rnd(0,256)+','+rnd(0,256)+','+rnd(0,256)+')';
+				},
+			false)
+		}
+	};
 	</script>
 </head>
 <body>
+<div></div>
 </body>
 </html>

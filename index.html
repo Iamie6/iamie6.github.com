@@ -19,8 +19,9 @@
 		if(window.DeviceMotionEvent){
 			window.addEventListener(
 				'devicemotion',
-				function(){
-					oDiv.style.background='rgb('+rnd(0,256)+','+rnd(0,256)+','+rnd(0,256)+')';
+				function(ev){
+					var a=ev.accelerationIncludingGravity;
+					oDiv.innerHTML=a.x+'<br>'+a.y+'<br>'+a.z;
 				},
 			false)
 		}

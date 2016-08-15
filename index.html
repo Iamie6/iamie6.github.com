@@ -45,9 +45,9 @@
 				var a=ev.accelerationIncludingGravity;
 
 				if(
-					Math.abs(a.x-lastX)>30||
-					Math.abs(a.y-lastY)>30||
-					Math.abs(a.z-lastZ)>30
+					Math.abs(a.x-lastX)>20||
+					Math.abs(a.y-lastY)>20||
+					Math.abs(a.z-lastZ)>20
 					){
 					oDiv.classList.add('sheke');
 					lastX=a.x;
@@ -55,6 +55,11 @@
 					lastZ=a.z;
 				}
 			},false);
+
+			oDiv.addEventListener('webkitAnimationEnd',function(){
+				alert(1);
+				oDiv.classList.remove('sheke');
+			},false)
 		}
 	};
 	</script>

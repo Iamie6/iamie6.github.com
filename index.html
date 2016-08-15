@@ -11,27 +11,27 @@
 			margin:50px auto;
 			transform-origin: center bottom;
 		}
-		@keyframes shake{
+		@-webkit-keyframes shake{
 			0%{
-				transform: rotate(0deg);
+				-webkit-transform: rotate(0deg);
 			}
 			25%{
-				transform: rotate(15deg);
+				-webkit-transform: rotate(15deg);
 			}
 			50%{
 
-				transform: rotate(0deg);
+				-webkit-transform: rotate(0deg);
 			}
 			75%{
 
-				transform: rotate(-15deg);
+				-webkit-transform: rotate(-15deg);
 			}
 			100%{
-				transform: rotate(0deg);
+				-webkit-transform: rotate(0deg);
 			}
 		}
 		.sheke{
-			animation:shake 0.4s linear 2;
+			-webkit-animation:shake 0.4s linear 2;
 		}
 	</style>
 	<script>
@@ -60,6 +60,6 @@
 	</script>
 </head>
 <body>
-	<div id="div2"></div>
+	<div id="div1"></div>
 </body>
 </html>

@@ -2,50 +2,64 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=320">
-	<title>Document</title>
+	<title>摇一摇</title>
 	<style>
-	div{
-		width:200px;
-		height:200px;
-		background: #ccc;
-	}
+		div{
+			width:200px;
+			height:200px;
+			background: red;
+			margin:50px auto;
+			transform-origin: center bottom;
+		}
+		@keyframes shake{
+			0%{
+				transform: rotate(0deg);
+			}
+			25%{
+				transform: rotate(15deg);
+			}
+			50%{
+
+				transform: rotate(0deg);
+			}
+			75%{
+
+				transform: rotate(-15deg);
+			}
+			100%{
+				transform: rotate(0deg);
+			}
+		}
+		.sheke{
+			animation:shake 0.4s linear 2;
+		}
 	</style>
 	<script>
-	function rnd(n,m){
-		return parseInt(Math.random()*(m-n)+n);
-	}
 	window.onload=function(){
-
-		var x=0;
-		var y=0;
-		var z=0;
-		var oDiv=document.getElementsByTagName('div')[0];
+		var oDiv=document.getElementById('div1');
+		var lastX=0;
+		var lastY=0;
+		var lastZ=0;
 		if(window.DeviceMotionEvent){
-			window.addEventListener(
-				'devicemotion',
-				function(ev){
-					var a=ev.accelerationIncludingGravity;
-					var nowX=a.x;
-					var nowY=a.y;
-					var nowZ=a.z;
+			window.addEventListener('devicemotion',function(ev){
+				var a=ev.accelerationIncludingGravity;
 
-					if(
-						Math.abs(nowX-x)>20
-						||Math.abs(nowY-y)>20
-						||Math.abs(nowZ-z)>20
-						){
-						oDiv.style.background='rgb('+rnd(0,256)+','+rnd(0,256)+','+rnd(0,256)+')';
-						x=nowX;
-						y=nowY;
-						z=nowZ;
-					}
-				},false)
+				if(
+					Math.abs(a.x-lastX)>30||
+					Math.abs(a.y-lastY)>30||
+					Math.abs(a.z-lastZ)>30
+					){
+					oDiv.classList.add('sheke');
+					lastX=a.x;
+					lastY=a.y;
+					lastZ=a.z;
+				}
+			},false);
 		}
 	};
 	</script>
 </head>
 <body>
-<div></div>
+	<div id="div2"></div>
 </body>
 </html>

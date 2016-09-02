@@ -2,87 +2,33 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>摇一摇</title>
+	<title>Document</title>
 	<style>
-		div{
-			width:200px;
-			height:200px;
-			background: red;
-			margin:50px auto;
-			transform-origin: center bottom;
-		}
-		@-webkit-keyframes shake{
-			0%{
-				-webkit-transform: rotate(0deg);
-			}
-			25%{
-				-webkit-transform: rotate(15deg);
-			}
-			50%{
-
-				-webkit-transform: rotate(0deg);
-			}
-			75%{
-
-				-webkit-transform: rotate(-15deg);
-			}
-			100%{
-				-webkit-transform: rotate(0deg);
-			}
-		}
-		@keyframes shake{
-			0%{
-				transform: rotate(0deg);
-			}
-			25%{
-				transform: rotate(15deg);
-			}
-			50%{
-				transform: rotate(0deg);
-			}
-			75%{
-				transform: rotate(-15deg);
-			}
-			100%{
-				transform: rotate(0deg);
-			}
-		}
-		.sheke{
-			-webkit-animation:shake 0.4s linear 2;
-			animation:shake 0.4s linear 2;
-		}
 	</style>
 	<script>
-	window.onload=function(){
-		var oDiv=document.getElementById('div1');
-		var lastX=0;
-		var lastY=0;
-		var lastZ=0;
-		if(window.DeviceMotionEvent){
-			window.addEventListener('devicemotion',function(ev){
-				var a=ev.accelerationIncludingGravity;
-
-				if(
-					Math.abs(a.x-lastX)>20||
-					Math.abs(a.y-lastY)>20||
-					Math.abs(a.z-lastZ)>20
-					){
-					oDiv.classList.add('sheke');
-					lastX=a.x;
-					lastY=a.y;
-					lastZ=a.z;
-				}
-			},false);
-
-			oDiv.addEventListener('webkitAnimationEnd',function(){
-				alert(1);
-				oDiv.classList.remove('sheke');
-			},false)
-		}
-	};
 	</script>
 </head>
 <body>
-	<div id="div1"></div>
+<form action="http://www.baidu.com" name="test">
+	<input type="text" >
+	<br>
+	<input type="email">
+	<br>
+	<input type="number" min="0"  max="10" step="3">
+	<br>
+	<input type="tel">
+	<br>
+	<input type="date">
+	<br>
+	<input type="Month">
+	<br>
+	<input type="week">
+	<br>
+	<input type="color">
+	<br>
+	<input type="range" min="0" max="100">
+	<br>
+	<input type="submit">
+</form>
 </body>
 </html>

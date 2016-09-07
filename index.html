@@ -4,10 +4,15 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=320">
 	<title>Document</title>
+	<style>
+		div{
+			background: red;
+		}
+	</style>
 	<script>
 	window.onload=function(){
 		var oDiv=document.getElementsByTagName('div')[0];
-		navigator.geolocation.getCurrentPosition(function(ev){
+		navigator.geolocation.watchPosition(function(ev){
 
 	var str='经度'+ev.coords.longitude+'<br>'
 			+'维度'+ev.coords.latitude+'<br>'

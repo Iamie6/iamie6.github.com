@@ -2,33 +2,26 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=320">
 	<title>Document</title>
-	<style>
-	</style>
 	<script>
+	window.onload=function(){
+		var oDiv=document.getElementsByTagName('div')[0];
+		navigator.geolocation.getCurrentPosition(function(ev){
+
+	var str='经度'+ev.coords.longitude+'<br>'
+			+'维度'+ev.coords.latitude+'<br>'
+			+'海拔'+ev.coords.altitude+'<br>'
+			+'方向'+ev.coords.heading;
+		oDiv.innerHTML=str;
+
+		},function(ev){
+			alert(ev.code+"|"+ev.message)
+		})
+	};
 	</script>
 </head>
 <body>
-<form action="http://www.baidu.com" name="test">
-	<input type="text" >
-	<br>
-	<input type="email">
-	<br>
-	<input type="number" min="0"  max="10" step="3">
-	<br>
-	<input type="tel">
-	<br>
-	<input type="date">
-	<br>
-	<input type="Month">
-	<br>
-	<input type="week">
-	<br>
-	<input type="color">
-	<br>
-	<input type="range" min="0" max="100">
-	<br>
-	<input type="submit">
-</form>
+<div></div>
 </body>
 </html>

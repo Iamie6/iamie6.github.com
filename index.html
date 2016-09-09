@@ -2,39 +2,22 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="yes" name="apple-touch-fullscreen"/>
+
 	<title>Document</title>
 	<style>
-		#box{
-			width:500px;
-			height:500px;
-			border:1px solid #000;
-		}
+	*{
+		padding:0;
+		margin:0;
+	}
 	</style>
-	<script src="http://api.map.baidu.com/api?v=2.0&ak=Kv0WFfz1HyvPL4sN04QkwmaV988RZp1o"></script>
-	<script>
-	window.onload=function(){
-		var map=new BMap.Map('box');
-
-		navigator.geolocation.getCurrentPosition(function(ev){
-			var x=ev.coords.longitude;
-			var y=ev.coords.latitude;
-			var point=new BMap.Point(x,y);
-
-			map.centerAndZoom(point, 18);
-
-			var marker = new BMap.Marker(point); 
-
-			map.addOverlay(marker);
-
-			map.enableScrollWheelZoom();
-		},function(){
-			alert("失败")
-		})
-
-	};
-	</script>
+<script>
+</script>
 </head>
 <body>
-	<div id="box"></div>
+<img src="1.jpg" alt="">
 </body>
 </html>

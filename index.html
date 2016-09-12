@@ -1,26 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta content="yes" name="apple-touch-fullscreen"/>
-
-	<title>Document</title>
-	<style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>document</title>
+<style>
 	*{
 		padding:0;
 		margin:0;
+		list-style:  none;
 	}
-	img{
-		width:320px;
+	div{
+		width:100px;
+		height:100px;
+		background: red;
+		float: left;
 	}
-	</style>
+	div:nth-child(2){
+		background: blue;
+		float: right;
+		margin-top:100px;
+	}
+</style>
 <script>
+function drag(obj){
+	var x=0;
+	var y=0;
+	var w=obj.offsetWidth;
+	var h=obj.offsetHeight;
+
+	var cW=document.documentElement.clientWidth;
+	var cH=document.documentElement.clientHeight;
+	obj.addEventListener('touchstart',function(ev){
+		var startX=ev.targetTouches[0].pageX-x;
+		var startY=ev.targetTouches[0].pageY-y;
+
+		function move(ev){
+			x=ev.targetTouches[0].pageX-startX;
+			y=ev.targetTouches[0].pageY-startY;
+
+			if(x<-obj.offsetLeft){
+				x=-obj.offsetLeft;
+			}
+			if(y<-obj.offsetTop){
+				y=-obj.offsetTop;
+			}
+			if(x>cW-w-obj.offsetLeft){
+				x=cW-w-obj.offsetLeft;
+			}
+			if(y>cH-h-obj.offsetTop){
+				y=cH-h-obj.offsetTop;
+			}
+			obj.style.WebkitTransform='translate('+x+'px,'+y+'px)';
+		}
+		function end(){
+			document.removeEventListener('touchend',end,false);
+			document.removeEventListener('touchmove',move,false);
+		}
+		document.addEventListener('touchmove',move,false);
+		document.addEventListener('touchend',end,false)
+		ev.preventDefault();
+	},false);
+}
+window.addEventListener('DOMContentLoaded',function(){
+	var oDiv=document.querySelector('div');
+	var oDiv1=document.querySelector('div:nth-child(2)');
+
+	drag(oDiv)
+	drag(oDiv1)
+
+},false);
 </script>
 </head>
 <body>
-<img src="1.jpg" alt="">
+<div></div>
+<div></div>
 </body>
 </html>

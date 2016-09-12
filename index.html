@@ -34,30 +34,37 @@ function drag(obj){
 	var cW=document.documentElement.clientWidth;
 	var cH=document.documentElement.clientHeight;
 	obj.addEventListener('touchstart',function(ev){
+		var id=ev.targetTouches[0].identifier;
+
+		
 		var startX=ev.targetTouches[0].pageX-x;
 		var startY=ev.targetTouches[0].pageY-y;
 
 		function move(ev){
-			x=ev.targetTouches[0].pageX-startX;
-			y=ev.targetTouches[0].pageY-startY;
+			if(ev.targetTouches[0].identifier==id){
+				x=ev.targetTouches[0].pageX-startX;
+				y=ev.targetTouches[0].pageY-startY;
 
-			if(x<-obj.offsetLeft){
-				x=-obj.offsetLeft;
+				if(x<-obj.offsetLeft){
+					x=-obj.offsetLeft;
+				}
+				if(y<-obj.offsetTop){
+					y=-obj.offsetTop;
+				}
+				if(x>cW-w-obj.offsetLeft){
+					x=cW-w-obj.offsetLeft;
+				}
+				if(y>cH-h-obj.offsetTop){
+					y=cH-h-obj.offsetTop;
+				}
+				obj.style.WebkitTransform='translate('+x+'px,'+y+'px)';
 			}
-			if(y<-obj.offsetTop){
-				y=-obj.offsetTop;
-			}
-			if(x>cW-w-obj.offsetLeft){
-				x=cW-w-obj.offsetLeft;
-			}
-			if(y>cH-h-obj.offsetTop){
-				y=cH-h-obj.offsetTop;
-			}
-			obj.style.WebkitTransform='translate('+x+'px,'+y+'px)';
 		}
-		function end(){
-			document.removeEventListener('touchend',end,false);
-			document.removeEventListener('touchmove',move,false);
+		function end(ev){
+			if(ev.changedTouches[0].identifier==id){
+				document.removeEventListener('touchend',end,false);
+				document.removeEventListener('touchmove',move,false);
+			}
 		}
 		document.addEventListener('touchmove',move,false);
 		document.addEventListener('touchend',end,false)
@@ -75,7 +82,7 @@ window.addEventListener('DOMContentLoaded',function(){
 </script>
 </head>
 <body>
-<div></div>
+<div id=""></div>
 <div></div>
 </body>
 </html>

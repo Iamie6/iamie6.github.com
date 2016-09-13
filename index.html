@@ -55,6 +55,8 @@ window.addEventListener('DOMContentLoaded',function(){
 
 			scale=c2/c1*s;
 
+			oDiv.innerHTML=scale;
+
 			document.removeEventListener('touchmove',move,false);
 			document.removeEventListener('touchend',end,false);
 		}

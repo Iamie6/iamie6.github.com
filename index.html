@@ -20,19 +20,27 @@
 <script>
 window.addEventListener('DOMContentLoaded',function(){
 	var oDiv=document.getElementsByTagName('div')[0];
-	var d=0;
+	var scale=0;
+
 	oDiv.addEventListener('touchstart',function(ev){
-		var x1=ev.targetTouches[0].pageX-ev.targetTouches[1].pageX;
-		var y1=ev.targetTouches[0].pageY-ev.targetTouches[1].pageY;
+		var x1=ev.targetTouches[0].pageX;
+		var x2=ev.targetTouches[1].pageX;
 
-		var deg=Math.atan2(y1,x1)*180/Math.PI-d;
+		var y1=ev.targetTouches[0].pageY;
+		var y2=ev.targetTouches[1].pageY;
+
+		var c1=Math.sqrt(Math.pow((x1-x2),2) +Math.pow((y1-y2),2));
+
 		function move(ev){
-			var x2=ev.targetTouches[0].pageX-ev.targetTouches[1].pageX;
-			var y2=ev.targetTouches[0].pageY-ev.targetTouches[1].pageY;
-			var deg2=Math.atan2(y2,x2)*180/Math.PI;
+			var x1=ev.targetTouches[0].pageX;
+			var x2=ev.targetTouches[1].pageX;
 
-			d=deg2-deg;
-			oDiv.style.transform='rotate('+d+'deg)';
+			var y1=ev.targetTouches[0].pageY;
+			var y2=ev.targetTouches[1].pageY;
+
+			var c2=Math.sqrt(Math.pow((x1-x2),2) +Math.pow((y1-y2),2));
+
+			oDiv.style.WebkitTransform='scale('+c2/c1+')';
 		}
 		function end(){
 			document.removeEventListener('touchmove',move,false);
@@ -42,11 +50,12 @@ window.addEventListener('DOMContentLoaded',function(){
 		document.addEventListener('touchmove',move,false);
 		document.addEventListener('touchend',end,false);
 		ev.preventDefault();
-	},false)
-},false)	
+
+	},false)	
+},false);
 </script>
 </head>
 <body>
-	<div></div>
+<div></div>
 </body>
 </html>

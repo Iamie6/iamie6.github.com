@@ -1,294 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script>
-(function(){
-	function setFont(){
-		document.documentElement.style.fontSize=document.documentElement.clientWidth/16+'px';
-	}
-	setFont();
-	window.addEventListener('resize',setFont,false);
-})();
-</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <title>document</title>
 <style>
-	*{
-		padding:0;
-		margin:0;
-		list-style: none;
-	}
-	html,body{
-		width:100%;
-	}
-	#box{
-		width:100%;
-	}
-	header{
-		width:100%;
-		display: -webkit-box;
-	}
-	header a{
-		display: block;
-		-webkit-box-flex:1;
-		height:2rem;
-		line-height: 2rem;
-		text-align: center;
-		font-size: 0.55rem;
-	}
-	a.active{
+	div{
+		width:200px;
+		height:200px;
 		background: red;
+		margin:100px auto;
+
 		color:#fff;
-	}
-	section{
-		width:100%;
-	}
-	section .tab{
-		width:100%;
-		overflow: hidden;
-	}
-	.tab ul{
-		width:400%;
-		display: -webkit-box;
-	}
-	.tab ul li{
-		-webkit-box-flex:1;
-		height:8.575rem;
-		background: url(images/tab_02.jpg) no-repeat;
-		background-size: 100% 100%;
-	}
-	.contentBox{
-		overflow: hidden;
-		margin-top:1rem;
-		width:100%;
-		border-top:2px #a6c6de solid;
-	}
-	.btns{
-
-	}
-	.btns a{
-		display: block;
-		float: left;
-		padding:0.8rem 0.5rem;
-	}
-	.content{
-		width:300%;
-		display: -webkit-box;
-	}
-	.content ul{
-		-webkit-box-flex:1;
-	}
-	.flesh{
-		width:100%;
-		text-align: center;
-		overflow: hidden;
-		transition: 0.5s all ease;
-
-		height: 0px;
-	}
-	.flesh span{
-		display: block;
+		font-size: 50px;
 	}
 </style>
 <script>
 window.addEventListener('DOMContentLoaded',function(){
-	var oUl=document.querySelector('.tab ul');
-	var aLi=oUl.children;
+	var oDiv=document.getElementsByTagName('div')[0];
+	var d=0;
+	oDiv.addEventListener('touchstart',function(ev){
+		var x1=ev.targetTouches[0].pageX-ev.targetTouches[1].pageX;
+		var y1=ev.targetTouches[0].pageY-ev.targetTouches[1].pageY;
 
-	var inow=1;
-	var x=-aLi[0].offsetWidth*inow;
-	oUl.style.transform='translateX('+x+'px)';
-	var moving=false;
-	var dir='';
-	oUl.addEventListener('touchstart',function(ev){
-		if(moving)return;
-		oUl.style.transition='none';
-		var startX=ev.targetTouches[0].pageX;
-		var startY=ev.targetTouches[0].pageY;
-		var disX=startX-x;
+		var deg=Math.atan2(y1,x1)*180/Math.PI-d;
 		function move(ev){
-			var moveX=ev.targetTouches[0].pageX;
-			var moveY=ev.targetTouches[0].pageY;
-			if(dir){
-				if(dir=='l2r'){
-					moving=true;
-					x=moveX-disX;
-				}
-			}else{
-				if(Math.abs(moveX-startX)>20){
-					dir='l2r';
-				}else if(Math.abs(moveY-startY)>20){
-					dir='t2b';
-				}
-			}
-			console.log(dir);
-			oUl.style.transform='translateX('+x+'px)';
-		}
-		function end(ev){
-		
-			document.removeEventListener('touchmove',move,false);
-			document.removeEventListener('touchend',end,false);
+			var x2=ev.targetTouches[0].pageX-ev.targetTouches[1].pageX;
+			var y2=ev.targetTouches[0].pageY-ev.targetTouches[1].pageY;
+			var deg2=Math.atan2(y2,x2)*180/Math.PI;
 
-			if(dir=='l2r'){
-				if(Math.abs(ev.changedTouches[0].pageX-startX)>50){
-					if(ev.changedTouches[0].pageX-startX>0){
-						inow--;
-						if(inow==-1){
-							inow=aLi.length-2;
-							oUl.style.transition='none';
-						}
-					}else{
-						inow++;
-						if(inow==aLi.length){
-							inow=1;
-							oUl.style.transition='none';
-						}
-					}
-					
-				}
-			}
-			oUl.style.transition='0.4s all ease';
-			x=-inow*aLi[0].offsetWidth;
-			oUl.style.transform='translateX('+x+'px)';
-			dir='';
-		}
-		document.addEventListener('touchend',end,false)
-		document.addEventListener('touchmove',move,false)
-		ev.preventDefault();
-	},false)
-
-	oUl.addEventListener('transitionend',function(){
-		moving=false;
-		if(inow==0){
-			inow=aLi.length-2;
-		}else if(inow==aLi.length-1){
-			inow=1;
-		}
-		oUl.style.transition='none';
-		x=-inow*aLi[0].offsetWidth;
-		oUl.style.transform='translateX('+x+'px)';
-	},false)
-
-	//下拉刷新
-	var oSec=document.querySelector('#box>section');
-	var oFlesh=document.querySelector('.flesh');
-	var y=0;
-	oSec.addEventListener('touchstart',function(ev){
-		var startY=ev.targetTouches[0].pageY;
-		var disY=startY-y;
-		function move(ev){
-			var moveY=ev.targetTouches[0].pageY;
-			y=moveY-disY;
-			if(y>20){
-				if(y>=60){
-					y=60
-				}
-				oFlesh.style.height=y+'px';
-			}
+			d=deg2-deg;
+			oDiv.style.transform='rotate('+d+'deg)';
 		}
 		function end(){
 			document.removeEventListener('touchmove',move,false);
 			document.removeEventListener('touchend',end,false);
-			y=0;
-			oFlesh.style.height=y+'px';
 		}
+
 		document.addEventListener('touchmove',move,false);
 		document.addEventListener('touchend',end,false);
-		//ev.preventDefault();
+		ev.preventDefault();
 	},false)
 },false)	
 </script>
 </head>
 <body>
-<div id="box">
-	<header>
-		<a href="javascript:;" class="active">新闻</a>
-		<a href="javascript:;">体育体育</a>
-		<a href="javascript:;">社会</a>
-		<a href="javascript:;">财经</a>
-		<a href="javascript:;">军事</a>
-	</header>
-	<section>
-		<div class="flesh">
-			<img src="roller.gif" alt="">
-			<span>下拉刷新</span>
-		</div>
-		<section class="tab">
-			<ul>
-				<li>2</li>
-				<li>1</li>
-
-				<li>2</li>
-				<li>1</li>
-			</ul>
-		</section>
-		<section class="contentBox">
-			<section class="btns">
-				<a href="javascript:;" class="active">新闻</a>
-				<a href="javascript:;">体育</a>
-				<a href="javascript:;">社会</a>
-			</section>
-			<section class="content">
-				<ul>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li><li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li><li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li><li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-				</ul>
-				<ul>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li><li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-				</ul>
-				<ul>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li><li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-					<li>asdfasdfasdfasf</li>
-				</ul>
-			</section>
-		</section>
-	</section>
-</div>
+	<div></div>
 </body>
 </html>

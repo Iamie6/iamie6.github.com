@@ -20,18 +20,17 @@
 <script>
 window.addEventListener('DOMContentLoaded',function(){
 	var oDiv=document.getElementsByTagName('div')[0];
+	//比例初始值
 	var scale=1;
+	//上一次的比例
+	var lastScale=1;
 
 	oDiv.addEventListener('touchstart',function(ev){
 		var x1=ev.targetTouches[0].pageX;
 		var x2=ev.targetTouches[1].pageX;
-
 		var y1=ev.targetTouches[0].pageY;
 		var y2=ev.targetTouches[1].pageY;
-
 		var c1=Math.sqrt(Math.pow((x1-x2),2) +Math.pow((y1-y2),2));
-
-		var s=scale;
 
 		function move(ev){
 			var x1=ev.targetTouches[0].pageX;
@@ -41,11 +40,13 @@ window.addEventListener('DOMContentLoaded',function(){
 			var y2=ev.targetTouches[1].pageY;
 
 			var c2=Math.sqrt(Math.pow((x1-x2),2) +Math.pow((y1-y2),2));
-
-			scale=c2/c1*s;
+			//当前放大的比例*上一次的比例
+			scale=c2/c1*lastScale;
 			oDiv.style.WebkitTransform='scale('+scale+')';
 		}
 		function end(ev){
+			//每次end，更新上一次比例
+			lastScale=scale;
 
 			document.removeEventListener('touchmove',move,false);
 			document.removeEventListener('touchend',end,false);
@@ -60,6 +61,6 @@ window.addEventListener('DOMContentLoaded',function(){
 </script>
 </head>
 <body>
-<div>222</div>
+<div>333</div>
 </body>
 </html>

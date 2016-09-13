@@ -20,7 +20,7 @@
 <script>
 window.addEventListener('DOMContentLoaded',function(){
 	var oDiv=document.getElementsByTagName('div')[0];
-	var scale=0;
+	var scale=1;
 
 	oDiv.addEventListener('touchstart',function(ev){
 		var x1=ev.targetTouches[0].pageX;
@@ -40,9 +40,18 @@ window.addEventListener('DOMContentLoaded',function(){
 
 			var c2=Math.sqrt(Math.pow((x1-x2),2) +Math.pow((y1-y2),2));
 
-			oDiv.style.WebkitTransform='scale('+c2/c1+')';
+			oDiv.style.WebkitTransform='scale('+c2/c1*scale+')';
 		}
-		function end(){
+		function end(ev){
+			var x1=ev.targetTouches[0].pageX;
+			var x2=ev.targetTouches[1].pageX;
+
+			var y1=ev.targetTouches[0].pageY;
+			var y2=ev.targetTouches[1].pageY;
+			var c2=Math.sqrt(Math.pow((x1-x2),2) +Math.pow((y1-y2),2));
+
+			scale=c2/c1;
+			
 			document.removeEventListener('touchmove',move,false);
 			document.removeEventListener('touchend',end,false);
 		}

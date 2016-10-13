@@ -15,40 +15,31 @@
 		width:200px;
 		height:200px;
 		background: red;
-		margin:100px auto;
 	}
 </style>
 <script>
 window.onload=function(){
 	var oBox=document.getElementById('box');
-	var d=0;
-	var deg1=0;
-
+	var x=0;
+	var y=0;
+	
 	oBox.addEventListener('touchstart',function(ev){
 		if(ev.targetTouches.length>1){
-			var a=ev.targetTouches[0].pageX-ev.targetTouches[1].pageX;
-			var b=ev.targetTouches[0].pageY-ev.targetTouches[1].pageY;
-
-			var arc=Math.atan2(b,a);
-
-			var deg=arc*180/Math.PI;
+			var disX=(ev.targetTouches[0].pageX+ev.targetTouches[1].pageX)/2-x;
+			var disY=(ev.targetTouches[0].pageY+ev.targetTouches[1].pageY)/2-y;
 			function move(ev){
-				var a=ev.targetTouches[0].pageX-ev.targetTouches[1].pageX;
-				var b=ev.targetTouches[0].pageY-ev.targetTouches[1].pageY;
+				x=(ev.targetTouches[0].pageX+ev.targetTouches[1].pageX)/2-disX;
+				y=(ev.targetTouches[0].pageY+ev.targetTouches[1].pageY)/2-disY;
 
-				var arc=Math.atan2(b,a);
-
-				deg1=arc*180/Math.PI;
-
-				oBox.style.webkitTransform='rotate('+(deg1-deg+d)+'deg)'
-			}
+				oBox.style.transform='translate('+x+'px,'+y+'px)';
+			}	
 			function end(){
-				d+=deg1-deg;
-				document.removeEventListener('touchmove',move,false)
-				document.removeEventListener('touchend',end,false)
+				document.removeEventListener('touchmove',move,false);
+				document.removeEventListener('touchend',end,false);
 			}
-			document.addEventListener('touchmove',move,false)
-			document.addEventListener('touchend',end,false)
+
+			document.addEventListener('touchmove',move,false);
+			document.addEventListener('touchend',end,false);
 			ev.preventDefault();
 		}
 	},false)

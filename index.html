@@ -39,7 +39,7 @@ window.onload=function(){
 				oBox.style.transform='scale('+scale*s+')';
 			}
 			function end(){
-				s=scale;
+				s*=scale;
 				oBox.innerHTML=s;
 				document.removeEventListener('touchmove',move,false);
 				document.removeEventListener('touchend',end,false);

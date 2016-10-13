@@ -21,6 +21,8 @@
 <script>
 window.onload=function(){
 	var oBox=document.getElementById('box');
+	var s=1;
+	var scale=1;
 
 	oBox.addEventListener('touchstart',function(ev){
 		if(ev.targetTouches.length>1){
@@ -32,14 +34,12 @@ window.onload=function(){
 			function move(ev){
 				var a=ev.targetTouches[0].pageX-ev.targetTouches[1].pageX;
 				var b=ev.targetTouches[0].pageY-ev.targetTouches[1].pageY;
-
 				var c1=Math.sqrt(a*a+b*b);
-
-				var scale=c1/c;
-
-				oBox.style.transform='scale('+scale+')';
+				scale=c1/c;
+				oBox.style.transform='scale('+scale*s+')';
 			}
 			function end(){
+				s=scale;
 				document.removeEventListener('touchmove',move,false);
 				document.removeEventListener('touchend',end,false);
 			}
@@ -52,6 +52,7 @@ window.onload=function(){
 </script>
 </head>
 <body>
+11111
 <div id="box"></div>
 </body>
 </html>

@@ -36,7 +36,7 @@ window.onload=function(){
 				var b=ev.targetTouches[0].pageY-ev.targetTouches[1].pageY;
 				var c1=Math.sqrt(a*a+b*b);
 				scale=c1/c;
-				oBox.style.transform='scale('+scale*s+')';
+				oBox.style.webkitTransform='scale('+scale*s+')';
 			}
 			function end(){
 				s*=scale;
@@ -53,7 +53,7 @@ window.onload=function(){
 </script>
 </head>
 <body>
-11111
+222222
 <div id="box"></div>
 </body>
 </html>

@@ -12,8 +12,8 @@
 		margin:0;
 	}
 	#box{
-		width:100px;
-		height:100px;
+		width:200px;
+		height:200px;
 		background: red;
 		margin:100px auto;
 	}
@@ -21,31 +21,34 @@
 <script>
 window.onload=function(){
 	var oBox=document.getElementById('box');
-	var s=1;
-	var scale=1;
+	var d=0;
+	var deg1=0;
 
 	oBox.addEventListener('touchstart',function(ev){
 		if(ev.targetTouches.length>1){
 			var a=ev.targetTouches[0].pageX-ev.targetTouches[1].pageX;
 			var b=ev.targetTouches[0].pageY-ev.targetTouches[1].pageY;
 
-			var c=Math.sqrt(a*a+b*b);
+			var arc=Math.atan2(b,a);
 
+			var deg=arc*180/Math.PI;
 			function move(ev){
 				var a=ev.targetTouches[0].pageX-ev.targetTouches[1].pageX;
 				var b=ev.targetTouches[0].pageY-ev.targetTouches[1].pageY;
-				var c1=Math.sqrt(a*a+b*b);
-				scale=c1/c;
-				oBox.style.webkitTransform='scale('+scale*s+')';
+
+				var arc=Math.atan2(b,a);
+
+				deg1=arc*180/Math.PI;
+
+				oBox.style.webkitTransform='rotate('+(deg1-deg+d)+'deg)'
 			}
 			function end(){
-				s*=scale;
-				oBox.innerHTML=s;
-				document.removeEventListener('touchmove',move,false);
-				document.removeEventListener('touchend',end,false);
+				d+=deg1-deg;
+				document.removeEventListener('touchmove',move,false)
+				document.removeEventListener('touchend',end,false)
 			}
-			document.addEventListener('touchmove',move,false);
-			document.addEventListener('touchend',end,false);
+			document.addEventListener('touchmove',move,false)
+			document.addEventListener('touchend',end,false)
 			ev.preventDefault();
 		}
 	},false)
@@ -53,7 +56,6 @@ window.onload=function(){
 </script>
 </head>
 <body>
-222222
 <div id="box"></div>
 </body>
 </html>
